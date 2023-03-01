@@ -17,6 +17,11 @@ def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blogposts/post_list.html', {'posts': posts})
 
+def post_list_short(request):
+    posts = Post.objects.all().order_by('-published_date')
+    context = {'posts': posts}
+    return render(request, 'blogposts/post_list_short.html', context)
+
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)

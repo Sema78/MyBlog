@@ -5,6 +5,6 @@ ul.horizontal {
 }
 
 ul.horizontal li {
-    right-margin: 10px;
+    margin-right: 20px;
     color: blue;
 }
