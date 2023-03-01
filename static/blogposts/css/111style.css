@@ -1,0 +1,10 @@
+ul.horizontal {
+    display: flex;
+    flex-direction: row;
+
+}
+
+ul.horizontal li {
+    margin-right: 10px;
+    color: blue;
+}

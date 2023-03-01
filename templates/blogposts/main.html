@@ -1,0 +1,33 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBlog</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header>
+      <div class="logo">
+          <h1>MyBlog</h1>
+      </div>
+      <nav class="menu">
+          <ul class="horizontal">
+              <li><a href="{% url 'home' %}">Home</a></li>
+              <li><a href="{% url 'post_new' %}">Add new post</a></li>
+              <li><a href="{% url 'post_list' %}">View all posts</a></li>
+              <li><a href="{% url 'login' %}">Login/Register</a></li>
+              <li><a href="{% url 'logout' %}">Logout</a></li>
+
+          </ul>
+      </nav>
+  </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+       <p>&copy; 2023 MyBlog</p>
+    </footer>
+</body>
+</html>
