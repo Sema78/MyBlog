@@ -1,0 +1,12 @@
+{% extends "blogposts/main.html" %}
+
+{% block content %}
+
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.category }} | {{ post.author }} | {{ post.published_date|date:"F j, Y" }}
+        {% if post.modified_date %}| Last modified: {{ post.modified_date|date:"F j, Y" }}{% endif %}
+    </p>
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+    <p>{{ post.content }}</p>
+
+{% endblock content%}

@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordResetView, LoginView
-from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm, UserRegistrationForm, LoginForm
 
 # Create your views here.
@@ -15,7 +16,24 @@ def home(request):
 
 def post_list(request):
     posts = Post.objects.all()
-    return render(request, 'blogposts/post_list.html', {'posts': posts})
+    paginator = Paginator(post_list, 10) # 10 post per page
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj
+    }
+
+    return render(request, 'blogposts/post_list.html', context)
+
+
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    context = {'post': post}
+    print([post.title])
+    return render(request, 'blogposts/post_detail.html', context)
 
 def post_list_short(request):
     posts = Post.objects.all().order_by('-published_date')
@@ -44,7 +62,7 @@ def register_view(request):
             return redirect('login')
     else:
         form = UserRegistrationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'blogposts/register.html', {'form': form})
 
 def login_view(request):
     if request.method == "POST":

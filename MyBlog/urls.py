@@ -19,13 +19,14 @@ from django.contrib import admin
 from django.contrib.auth import views
 from django.urls import path, include
 from blogposts import views
-from blogposts.views import post_list, post_new, home, logout_view, post_list_short
+from blogposts.views import post_list, post_new, home, logout_view, post_list_short, post_detail
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.post_list_short, name='post_list_short'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', views.register_view, name='register'),
     path('password-reset/', views.password_reset, name='password_reset'),
