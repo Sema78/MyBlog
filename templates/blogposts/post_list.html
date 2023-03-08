@@ -2,10 +2,30 @@
 
 {% block content %}
 
-    {% for post in posts %}
-        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
-        <p><img src="/media/{{ post.image }}" width="500px"></p>
-        <p>{{ post.content }}</p>
+    {% for post in page_obj %}
+        <div class="post">
+            <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+            <p><img src="/media/{{ post.image }}" width="500px"></p>
+            <p>{{ post.content }}</p>
+        </div>
     {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">&laquo; previous</a>
+            {% endif %}
+
+            <span class="current_page">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}"next &rsaquo;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
 {% endblock%}
